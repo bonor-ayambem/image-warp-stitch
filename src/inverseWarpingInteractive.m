@@ -53,6 +53,6 @@ end
 
 % Show the result
 figure; imshow(I_transformed);
-imwrite(I_transformed,'panorama_inverse_warping.png');
+imwrite(I_transformed,'my_panorama_inverse_warping.png');
 
 disp(['This version of warping calculated new values for ' num2str(100*count/(rows*cols)) '% of destination pixels.'])
