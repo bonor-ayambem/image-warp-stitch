@@ -16,16 +16,16 @@ and using geometric transformations to align and blend these images smoothly.
 ## Task 1
 Below is the panorama for the left and middle image
 
-<img src="output/panorama_2images.png" width="250" height="250">
+<img src="output/panorama_2images.png" width="400" height="250">
 
 Here is the image after inverse warping
 
-<img src="output/panorama_2inverse_warping.png" width="250" height="250">
+<img src="output/panorama_2inverse_warping.png" width="400" height="250">
 
 ## Task 2
 Below is the generated panorama using the left image as the reference inverse warping
 
-<img src="output\panorama_3images.png" width="250" height="250">
+<img src="output\panorama_3images.png" width="400" height="250">
 
 ## Task 3
 ### Answer
@@ -36,14 +36,14 @@ stitched panorama.
 
 Here are the resulting images when the middle image is used as our reference:
 
-<img src="output/my_images/panorama_3images_reordered.png" width="250" height="250">
+<img src="output/panorama_3images_reordered.png" width="400" height="250">
 
-<img src="output\my_images\panorama_3inverse_warping.png" width="250" height="250">
+<img src="output\panorama_3inverse_warping.png" width="400" height="250">
 
 ## Task 4
 
 Below are the output of running Task 2 and Task 3 on my own images
 
-<img src="output\my_images\my_panorama_3images_reordered.png" width="250" height="250">
+<img src="output/my_images/my_panorama_3images_reordered.png" width="400" height="250">
 
-<img src="\output\my_images\my_panorama_inverse_warping.png" width="250" height="250">
+<img src="output/my_images/my_panorama_inverse_warping.png" width="400" height="250">
