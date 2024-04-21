@@ -28,9 +28,9 @@ keypoints_middle = detectSURFFeatures(grayImage_middle);
 % *** TASK 2: add keypoint detection and feature extraction for your right
 % image here:
 
-%%%% grayImage_middle = rgb2gray(im_middle);
-%%%%% keypoints_middle = detectSURFFeatures(grayImage_middle);
-%%%%% [descriptors_middle, keypoints_middle] = extractFeatures(grayImage_middle, keypoints_middle);
+grayImage_middle = rgb2gray(im_middle);
+keypoints_middle = detectSURFFeatures(grayImage_middle);
+[descriptors_middle, keypoints_middle] = extractFeatures(grayImage_middle, keypoints_middle);
 
 
 
@@ -69,10 +69,10 @@ tforms(2) = estimateGeometricTransform(...
 % and middle images, and to find the transformation (assigned to tforms(3))
 
 
-%%%%%% tforms(3) = estimateGeometricTransform(...
-%%%%%%    matchedKeypoints_right, ...
-%%%%%%    matchedKeypoints_middle,...
-%%%%%%    'projective');
+tforms(3) = estimateGeometricTransform(...
+    matchedKeypoints_right, ...
+    matchedKeypoints_middle,...
+    'projective');
 
 
 % *** TASK 2: once you have your tforms(3) calculated, correct it here

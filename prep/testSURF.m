@@ -3,7 +3,7 @@ clear all
 close all
 
 % Read and show the input image
-I = imread('nd2.jpg');
+I = imread('../data/3.jpg');
 
 % Calculate SURF for your image
 grayImage = rgb2gray(I);

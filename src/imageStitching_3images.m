@@ -28,9 +28,9 @@ keypoints_middle = detectSURFFeatures(grayImage_middle);
 % *** TASK 2: add keypoint detection and feature extraction for your right
 % image here:
 
-%%%% grayImage_middle = rgb2gray(im_middle);
-%%%%% keypoints_middle = detectSURFFeatures(grayImage_middle);
-%%%%% [descriptors_middle, keypoints_middle] = extractFeatures(grayImage_middle, keypoints_middle);
+grayImage_right = rgb2gray(im_right);
+keypoints_right = detectSURFFeatures(grayImage_right);
+[descriptors_right, keypoints_right] = extractFeatures(grayImage_right, keypoints_right);
 
 
 
@@ -40,7 +40,7 @@ keypoints_middle = detectSURFFeatures(grayImage_middle);
 
 
 tforms(3) = projective2d(eye(3));
-
+tforms(1) = projective2d(eye(3)); % Identity matrix for the left image
 
 
 % Find corespondaces between keypoints (using their descriptors)
@@ -67,20 +67,22 @@ tforms(2) = estimateGeometricTransform(...
 
 % *** TASK 2: add the code here to find corespondences between your right
 % and middle images, and to find the transformation (assigned to tforms(3))
+indexPairs_right = matchFeatures(descriptors_right, descriptors_middle, 'Unique', true);
+matchedKeypoints_right = keypoints_right(indexPairs_right(:,1), :);
+matchedKeypoints_middle = keypoints_middle(indexPairs_right(:,2), :);
 
 
-%%%%%% tforms(3) = estimateGeometricTransform(...
-%%%%%%    matchedKeypoints_right, ...
-%%%%%%    matchedKeypoints_middle,...
-%%%%%%    'projective');
+tforms(3) = estimateGeometricTransform(...
+    matchedKeypoints_right, ...
+    matchedKeypoints_middle,...
+    'projective');
 
 
 % *** TASK 2: once you have your tforms(3) calculated, correct it here
 
-% tforms(3).T = tforms(3).T * tforms(2).T;
+tforms(3).T = tforms(3).T * tforms(2).T;
 
 % *** TASK 3: think if this correction is still needed
-
 
 
 
@@ -117,7 +119,7 @@ panoramaView = imref2d([height width], xLimits, yLimits);
 % Warp the images using transformation matrices
 warped_im_left = imwarp(im_left, tforms(1), 'OutputView', panoramaView);
 warped_im_middle = imwarp(im_middle, tforms(2), 'OutputView', panoramaView);
-%%%%% warped_im_right = imwarp(im_middle, tforms(2), 'OutputView', panoramaView);
+warped_im_right = imwarp(im_right, tforms(3), 'OutputView', panoramaView);
 
 % *** TASK 2: calculate your warped right image here:
 
@@ -126,8 +128,7 @@ warped_im_middle = imwarp(im_middle, tforms(2), 'OutputView', panoramaView);
 % Generate binary masks for blending
 mask_left = imwarp(true(size(im_left,1),size(im_left,2)), tforms(1), 'OutputView', panoramaView);
 mask_middle = imwarp(true(size(im_middle,1),size(im_middle,2)), tforms(2), 'OutputView', panoramaView);
-
-%%%%%% mask_right = imwarp(true(size(im_middle,1),size(im_middle,2)), tforms(3), 'OutputView', panoramaView);
+mask_right = imwarp(true(size(im_right,1),size(im_right,2)), tforms(3), 'OutputView', panoramaView);
 
 % *** TASK 2: calculate your mask for the right image here:
 
@@ -136,7 +137,7 @@ mask_middle = imwarp(true(size(im_middle,1),size(im_middle,2)), tforms(2), 'Outp
 % Overlay the warped images onto the panorama
 panorama = step(blender, panorama, warped_im_left, mask_left);
 panorama = step(blender, panorama, warped_im_middle, mask_middle);
-%%%%% panorama = step(blender, panorama, warped_im_right, mask_middle);
+panorama = step(blender, panorama, warped_im_right, mask_right);
 
 % *** TASK 2: finally add your warped right image (with mask) to your
 % panorama here:
